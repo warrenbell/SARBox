@@ -22,7 +22,7 @@ import styles from "./styles";
 
 const headerLogo = require("../../../assets/header-logo.png");
 
-class Settings extends Component {
+class Missions extends Component {
   render() {
     const navigation = this.props.navigation;
     const primary = require("../../theme/variables/commonColor").brandPrimary;
@@ -43,9 +43,9 @@ class Settings extends Component {
           <Right />
         </Header>
         <View style={styles.overviewHeaderContainer}>
-          <Text style={styles.overviewHeader}>Settings</Text>
+          <Text style={styles.overviewHeader}>Missions</Text>
           <Text note style={styles.overviewHead}>
-            Lots of cool Settings stuff here.
+            Lots of cool Missions stuff here.
           </Text>
         </View>
 
@@ -61,4 +61,4 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+export default Missions;

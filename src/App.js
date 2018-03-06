@@ -5,6 +5,9 @@ import { Root } from "native-base";
 import Login from "./screens/Login/";
 import ForgotPassword from "./screens/ForgotPassword";
 import SignUp from "./screens/SignUp/";
+import Missions from "./screens/Missions/";
+import Trainings from "./screens/Trainings/";
+import TimeTracking from "./screens/TimeTracking/";
 import Walkthrough from "./screens/Walkthrough/";
 import Comments from "./screens/Comments/";
 import Channel from "./screens/Channel";
@@ -12,7 +15,6 @@ import Story from "./screens/Story";
 import Home from "./screens/Home/";
 import Channels from "./screens/Channels";
 import Sidebar from "./screens/Sidebar";
-import Overview from "./screens/Overview";
 import Calendar from "./screens/Calendar/";
 import Timeline from "./screens/Timeline";
 import Feedback from "./screens/Feedback/";
@@ -22,8 +24,10 @@ import Settings from "./screens/Settings";
 const Drawer = DrawerNavigator(
   {
     Home: { screen: Home },
+    Missions: { screen: Missions },
+    Trainings: { screen: Trainings },
+    TimeTracking: { screen: TimeTracking },
     Channels: { screen: Channels },
-    Overview: { screen: Overview },
     Calendar: { screen: Calendar },
     Timeline: { screen: Timeline },
     Feedback: { screen: Feedback },
@@ -36,41 +40,6 @@ const Drawer = DrawerNavigator(
   }
 );
 
-const getStackNavigator = (signedIn = false) => {
-  return StackNavigator(
-    {
-      Login: { screen: Login },
-      SignUp: { screen: SignUp },
-      ForgotPassword: { screen: ForgotPassword },
-      Walkthrough: { screen: Walkthrough },
-      Story: { screen: Story },
-      Comments: { screen: Comments },
-      Channel: { screen: Channel },
-      Drawer: { screen: DrawerNavigator(
-        {
-          Home: { screen: Home },
-          Channels: { screen: Channels },
-          Overview: { screen: Overview },
-          Calendar: { screen: Calendar },
-          Timeline: { screen: Timeline },
-          Feedback: { screen: Feedback },
-          Profile: { screen: Profile },
-          Settings: { screen: Settings }
-        },
-        {
-          initialRouteName: "Home",
-          contentComponent: props => <Sidebar {...props} />
-        }
-      )},
-    },
-    {
-      index: 0,
-      initialRouteName: isLoggedIn ? "Home" : "Login",
-      headerMode: "none"
-    }
-  );
-}
-
 const App = StackNavigator(
   {
     Login: { screen: Login },
@@ -80,7 +49,7 @@ const App = StackNavigator(
     Story: { screen: Story },
     Comments: { screen: Comments },
     Channel: { screen: Channel },
-    Drawer: { screen: Drawer },
+    Drawer: { screen: Drawer }
   },
   {
     index: 0,

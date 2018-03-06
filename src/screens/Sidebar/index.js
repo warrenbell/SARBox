@@ -38,63 +38,41 @@ class SideBar extends Component {
               iconLeft
               style={styles.links}
             >
-              <Icon name="ios-grid-outline" />
-              <Text style={styles.linkText}>NEWS</Text>
+              <Icon name="ios-home-outline" />
+              <Text style={styles.linkText}>HOME</Text>
             </ListItem>
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Channels");
+                navigation.navigate("Missions");
               }}
               iconLeft
               style={styles.links}
             >
-              <Icon name="ios-keypad-outline" />
-              <Text style={styles.linkText}>CHANNELS</Text>
+              <Icon name="ios-beer-outline" />
+              <Text style={styles.linkText}>MISSIONS</Text>
             </ListItem>
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Overview");
+                navigation.navigate("Trainings");
               }}
               iconLeft
               style={styles.links}
             >
-              <Icon name="ios-stats" />
-              <Text style={styles.linkText}> OVERVIEW</Text>
+              <Icon name="ios-school-outline" />
+              <Text style={styles.linkText}>TRAININGS</Text>
             </ListItem>
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Calendar");
-              }}
-              iconLeft
-              style={styles.links}
-            >
-              <Icon name="ios-calendar-outline" />
-              <Text style={styles.linkText}>CALENDAR</Text>
-            </ListItem>
-            <ListItem
-              button
-              onPress={() => {
-                navigation.navigate("Timeline");
+                navigation.navigate("TimeTracking");
               }}
               iconLeft
               style={styles.links}
             >
               <Icon name="ios-timer-outline" />
-              <Text style={styles.linkText}>TIMELINE</Text>
-            </ListItem>
-            <ListItem
-              button
-              onPress={() => {
-                navigation.navigate("Profile");
-              }}
-              iconLeft
-              style={styles.links}
-            >
-              <Icon name="ios-person-outline" />
-              <Text style={styles.linkText}> PROFILE</Text>
+              <Text style={styles.linkText}>TIME TRACKING</Text>
             </ListItem>
             <ListItem
               button
@@ -106,17 +84,6 @@ class SideBar extends Component {
             >
               <Icon name="ios-settings-outline" />
               <Text style={styles.linkText}>SETTINGS</Text>
-            </ListItem>
-            <ListItem
-              button
-              onPress={() => {
-                navigation.navigate("Feedback");
-              }}
-              iconLeft
-              style={styles.links}
-            >
-              <Icon name="ios-paper-outline" />
-              <Text style={styles.linkText}>FEEDBACK</Text>
             </ListItem>
           </Content>
           <View style={styles.logoutContainer}>
@@ -136,7 +103,7 @@ class SideBar extends Component {
                       LOG OUT
                     </Text>
                     <Text note style={{ color: "#fff" }}>
-                      Kumar Sanket
+                      Warren Bell
                     </Text>
                   </TouchableOpacity>
                 </Col>

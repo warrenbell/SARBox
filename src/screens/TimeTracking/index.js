@@ -22,7 +22,7 @@ import styles from "./styles";
 
 const headerLogo = require("../../../assets/header-logo.png");
 
-class Overview extends Component {
+class TimeTracking extends Component {
   render() {
     const navigation = this.props.navigation;
     const primary = require("../../theme/variables/commonColor").brandPrimary;
@@ -43,9 +43,9 @@ class Overview extends Component {
           <Right />
         </Header>
         <View style={styles.overviewHeaderContainer}>
-          <Text style={styles.overviewHeader}>Home</Text>
+          <Text style={styles.overviewHeader}>Time Tracking</Text>
           <Text note style={styles.overviewHead}>
-            Lots of cool home stuff here.
+            Lots of cool Time Tracking stuff here.
           </Text>
         </View>
 
@@ -61,4 +61,4 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+export default TimeTracking;

@@ -68,7 +68,7 @@ class LoginForm extends Component {
   componentDidMount() {
     const { user, navigation } = this.props;
     if(user) {
-      navigation.navigate("Overview");
+      navigation.navigate("Home");
     }
   }
 
