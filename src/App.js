@@ -8,6 +8,9 @@ import SignUp from "./screens/SignUp/";
 import Missions from "./screens/Missions/";
 import Trainings from "./screens/Trainings/";
 import TimeTracking from "./screens/TimeTracking/";
+import Mapping from "./screens/Mapping/";
+import CallOuts from "./screens/CallOuts/";
+import Social from "./screens/Social/";
 import Walkthrough from "./screens/Walkthrough/";
 import Comments from "./screens/Comments/";
 import Channel from "./screens/Channel";
@@ -27,6 +30,9 @@ const Drawer = DrawerNavigator(
     Missions: { screen: Missions },
     Trainings: { screen: Trainings },
     TimeTracking: { screen: TimeTracking },
+    Mapping: { screen: Mapping },
+    CallOuts: { screen: CallOuts },
+    Social: { screen: Social },
     Channels: { screen: Channels },
     Calendar: { screen: Calendar },
     Timeline: { screen: Timeline },

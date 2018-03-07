@@ -30,6 +30,7 @@ class SideBar extends Component {
           style={styles.background}
         >
           <Content style={styles.drawerContent}>
+          
             <ListItem
               button
               onPress={() => {
@@ -41,6 +42,37 @@ class SideBar extends Component {
               <Icon name="ios-home-outline" />
               <Text style={styles.linkText}>HOME</Text>
             </ListItem>
+
+
+
+            <ListItem
+              button
+              onPress={() => {
+                navigation.navigate("Mapping");
+              }}
+              iconLeft
+              style={styles.links}
+            >
+              <Icon name="ios-map-outline" />
+              <Text style={styles.linkText}>MAPPING</Text>
+            </ListItem>
+
+
+
+            <ListItem
+              button
+              onPress={() => {
+                navigation.navigate("CallOuts");
+              }}
+              iconLeft
+              style={styles.links}
+            >
+              <Icon name="ios-megaphone-outline" />
+              <Text style={styles.linkText}>CALL OUTS</Text>
+            </ListItem>
+
+
+
             <ListItem
               button
               onPress={() => {
@@ -52,6 +84,9 @@ class SideBar extends Component {
               <Icon name="ios-beer-outline" />
               <Text style={styles.linkText}>MISSIONS</Text>
             </ListItem>
+
+
+
             <ListItem
               button
               onPress={() => {
@@ -63,6 +98,9 @@ class SideBar extends Component {
               <Icon name="ios-school-outline" />
               <Text style={styles.linkText}>TRAININGS</Text>
             </ListItem>
+
+
+
             <ListItem
               button
               onPress={() => {
@@ -74,6 +112,23 @@ class SideBar extends Component {
               <Icon name="ios-timer-outline" />
               <Text style={styles.linkText}>TIME TRACKING</Text>
             </ListItem>
+
+
+
+            <ListItem
+              button
+              onPress={() => {
+                navigation.navigate("Social");
+              }}
+              iconLeft
+              style={styles.links}
+            >
+              <Icon name="ios-bonfire-outline" />
+              <Text style={styles.linkText}>SOCIAL</Text>
+            </ListItem>
+
+
+
             <ListItem
               button
               onPress={() => {
@@ -85,6 +140,7 @@ class SideBar extends Component {
               <Icon name="ios-settings-outline" />
               <Text style={styles.linkText}>SETTINGS</Text>
             </ListItem>
+
           </Content>
           <View style={styles.logoutContainer}>
             <View style={styles.logoutbtn} foregroundColor={"white"}>
