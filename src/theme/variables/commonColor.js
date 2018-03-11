@@ -1,9 +1,13 @@
 import color from "color";
 
+// Hue is a degree on the color wheel (from 0 to 360) - 0 (or 360) is red, 120 is green, 240 is blue.
+// Saturation is a percentage value; 0% means a shade of gray and 100% is the full color.
+// Lightness is also a percentage; 0% is black, 100% is white.
+
 import { Platform, Dimensions, PixelRatio } from "react-native";
 
-// const primary = "#01cca1";
-const primary = "#F18700";
+// const primary = "#01cca1"; // H 167.3 S 99 L 40
+const primary = "#F18700"; // H 33.6 S 100 L 47
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -101,9 +105,17 @@ module.exports = {
   // Card
   cardDefaultBg: "#fff",
 
-  // Color
+  // Color Original FlatApp Theme
+  // brandPrimary: primary, H 167.3 S 99 L 40
+  // brandSecondary: "#00c497", H 166.2 S 100 L 38
+
+  // SARBox colors
+  // H 33.6 S 100 L 47
   brandPrimary: primary,
-  brandSecondary: "#00c497",
+  // H 32.5 S 99 L 45
+  brandSecondary: "#e47c01",
+
+  // Non Brand Colors
   brandInfo: "#62B1F6",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",

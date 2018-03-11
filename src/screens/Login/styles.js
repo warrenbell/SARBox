@@ -40,7 +40,8 @@ export default {
   },
   formErrorText1: {
     fontSize: Platform.OS === "android" ? 12 : 15,
-    color: commonColor.brandDanger,
+    //color: commonColor.brandDanger,
+    color: "#fff",
     textAlign: "right",
     top: -10
   },

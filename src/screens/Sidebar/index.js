@@ -30,7 +30,7 @@ class SideBar extends Component {
           style={styles.background}
         >
           <Content style={styles.drawerContent}>
-          
+
             <ListItem
               button
               onPress={() => {
@@ -159,7 +159,7 @@ class SideBar extends Component {
                       LOG OUT
                     </Text>
                     <Text note style={{ color: "#fff" }}>
-                      Warren Bell
+                      
                     </Text>
                   </TouchableOpacity>
                 </Col>

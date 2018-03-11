@@ -8,9 +8,9 @@ export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
     case "LOGIN_USER_SUCCESS":
-      return { ...state, ...INITIAL_STATE, user: action.payload };
+      return { ...INITIAL_STATE, user: action.user };
     case "LOGIN_USER_FAIL":
-      return { ...state, ...INITIAL_STATE, loginError: action.payload };
+      return { ...INITIAL_STATE, loginError: action.loginError };
     case "LOGOUT_USER":
       return { ...INITIAL_STATE };
     default:

@@ -17,7 +17,7 @@ import {
   Spinner
 } from "native-base";
 import { connect } from "react-redux";
-import { Field, reduxForm, change, initialize, SubmissionError } from "redux-form";
+import { Field, reduxForm, change, initialize as initializeForm, SubmissionError } from "redux-form";
 
 import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
@@ -25,28 +25,31 @@ import styles from "./styles";
 // Get login actions
 import { loginUser } from "../../actions";
 
+// Get form Validators
+import validators from "../../utils/validators"
+
+// Get images
 const bg = require("../../../assets/bg.png");
 const logo = require("../../../assets/logo.png");
 
 // Form Validators
-const required = value => (value ? undefined : "Required");
-const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
-const maxLength15 = maxLength(15);
-const minLength = min => value =>
-  value && value.length < min ? `Must be ${min} characters or more` : undefined;
-const minLength8 = minLength(8);
-const email = value =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? "Invalid email address"
-    : undefined;
-const alphaNumeric = value =>
-  value && /[^a-zA-Z0-9 ]/i.test(value)
-    ? "Only alphanumeric characters"
-    : undefined;
+const usernameRequired = validators.required("A username is required");
+const passwordRequired = validators.required("A password is required");
+const passwordMaxLength = validators.maxLength(15, "No more than 15 characters");
+const passwordMinLength = validators.minLength(8, "No less than 8 characters");
+const alphaNumeric = validators.alphaNumericNoSpaces("Must be letters and numbers only")
 
+// redux-form calls onSubmitSuccess
+const onSubmitSuccess = (result, dispatch, props) => {
+  // console.warn("onSubmitSuccess CALLED");
+  const { initializeForm, navigation } = props;
+  initializeForm("login");
+  navigation.navigate("Home");
+}
+
+// redux-form calls onSubmitFail
 const onSubmitFail = (errors, dispatch, submitError, props) => {
-  console.warn("onSubmitFail CALLED");
+  // console.warn("onSubmitFail CALLED");
   const { _error } = errors;
   if (_error) {
     Toast.show({
@@ -56,9 +59,9 @@ const onSubmitFail = (errors, dispatch, submitError, props) => {
         textStyle: { textAlign: "center" }
       });
   }
-  const oldEmailValue = props.values.email;
-  dispatch(initialize("login"));
-  dispatch(change("login", "email", oldEmailValue));
+  const oldUsernameValue = props.values.username;
+  dispatch(initializeForm("login"));
+  dispatch(change("login", "username", oldUsernameValue));
 }
 
 declare type Any = any;
@@ -72,24 +75,22 @@ class LoginForm extends Component {
     }
   }
 
+  // redux-form handleSubmit calls onSubmit
   onSubmit(values, dispatch, props) {
-    // Create a promise so redux form uses the property submitting
     return new Promise((resolve, reject) => {
-      const {login, pristine, navigation } = props;
+      const {pristine } = props;
+      const { username, password } = values;
       if(pristine) {
-        Toast.show({
-            text: "Enter your email and password.",
-            duration: 2500,
-            position: "top",
-            textStyle: { textAlign: "center" }
-          });
-          resolve();
+        throw { "loginError": "Enter your username and password." };
       } else {
-        login(values.email, values.password, navigation, resolve, reject);
+        // Don't need to bind loginUser to props when using dispatch
+        dispatch(loginUser(username, password, resolve, reject));
       }
-    }).then()
-    .catch(loginError => {
-      throw new SubmissionError({ _error: loginError });
+    }).then((success) => {
+      // console.warn("success:\n" + JSON.stringify(success, null, 2));
+    }).catch((fail) => {
+      // console.warn("fail:\n" + JSON.stringify(fail, null, 2));
+      throw new SubmissionError({ _error: fail.loginError });
     });
   }
 
@@ -99,14 +100,14 @@ class LoginForm extends Component {
         <Item error={error && touched} rounded style={styles.inputGrp}>
           <Icon
             active
-            name={input.name === "email" ? "mail" : "unlock"}
+            name={input.name === "username" ? "mail" : "unlock"}
             style={{ color: "#fff" }}
           />
           <Input
             ref={c => (this.textInput = c)}
             placeholderTextColor="#FFF"
             style={styles.input}
-            placeholder={input.name === "email" ? "Email" : "Password"}
+            placeholder={input.name === "username" ? "Username" : "Password"}
             secureTextEntry={input.name === "password" ? true : false}
             {...input}
           />
@@ -185,16 +186,16 @@ class LoginForm extends Component {
             <View style={styles.container}>
               <View style={styles.form}>
                 <Field
-                  name="email"
+                  name="username"
                   component={this.renderInput}
-                  type="email"
-                  validate={[email, required]}
+                  type="text"
+                  validate={[alphaNumeric, usernameRequired]}
                 />
                 <Field
                   name="password"
                   component={this.renderInput}
                   type="password"
-                  validate={[alphaNumeric, minLength8, maxLength15, required]}
+                  validate={[alphaNumeric, passwordMinLength, passwordMaxLength, passwordRequired]}
                 />
                 {this.renderLoginButton()}
                 <View style={styles.otherLinksContainer}>
@@ -247,21 +248,23 @@ class LoginForm extends Component {
     );
   }
 }
+
+// Set-up redux-form
 const Login = reduxForm({
   form: "login",
+  onSubmitSuccess: onSubmitSuccess,
   onSubmitFail: onSubmitFail,
   persistentSubmitErrors: true
 })(LoginForm);
 
-function bindAction(dispatch) {
-  return {
-    login: (email, password, navigation, resolve, reject) => dispatch(loginUser(email, password, navigation, resolve, reject))
-  };
-}
-
+// loginError, user gets bound to props
 const mapStateToProps = ({ loginReducer }) => {
   const { loginError, user } = loginReducer;
   return { loginError, user };
 };
 
-export default connect(mapStateToProps, bindAction)(Login);
+// Auto binding of actions to props. Do not need to use bindAction with code below
+// Action initializeForm function gets bound to props
+// connect(mapStateToProps, { initializeForm })
+
+export default connect(mapStateToProps, { initializeForm })(Login);

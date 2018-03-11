@@ -1,6 +1,6 @@
 {
   "name": "SARBox",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "private": true,
   "devDependencies": {
     "babel-eslint": "7.2.3",
@@ -51,6 +51,7 @@
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.5",
     "redux": "3.7.2",
+    "redux-devtools-extension": "^2.13.2",
     "redux-form": "7.0.3",
     "redux-persist": "4.8.3",
     "redux-thunk": "2.2.0",

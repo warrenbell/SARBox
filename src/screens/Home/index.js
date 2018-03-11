@@ -15,14 +15,49 @@ import {
   Grid,
   Col
 } from "native-base";
+import { connect } from "react-redux";
 
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+
+// Get authorization actions
+import { clearAuthorizations, setAuthorizations } from "../../actions";
 
 import styles from "./styles";
 
 const headerLogo = require("../../../assets/header-logo.png");
 
 class Home extends Component {
+
+  componentDidMount() {
+    const { setAuthorizations } = this.props;
+    //console.warn("START BEFORE AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
+    setAuthorizations([{allowed: ['read-home-message'], except: [], key: 'showHomeMessage'}], true);
+    //console.warn("START AFTER AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
+  }
+
+  componentWillUnmount() {
+    const { clearAuthorizations } = this.props;
+    //console.warn("END BEFORE CLEAR AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
+    clearAuthorizations();
+    //console.warn("END AFTER CLEAR AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
+  }
+
+  renderMessage() {
+    const { authorizations, isAuthzInitialized } = this.props;
+    if(!isAuthzInitialized) {
+      return null;
+    }
+    if(authorizations['showHomeMessage']) {
+      return (
+        <Text style={styles.overviewHeader}>Home</Text>
+      );
+    } else {
+      return (
+        <Text style={styles.overviewHeader}>Not Authorized</Text>
+      );
+    }
+  }
+
   render() {
     const navigation = this.props.navigation;
     const primary = require("../../theme/variables/commonColor").brandPrimary;
@@ -43,7 +78,7 @@ class Home extends Component {
           <Right />
         </Header>
         <View style={styles.overviewHeaderContainer}>
-          <Text style={styles.overviewHeader}>Home</Text>
+          {this.renderMessage()}
           <Text note style={styles.overviewHead}>
             Lots of cool Home stuff here.
           </Text>
@@ -61,4 +96,9 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = ({ authzReducer }) => {
+  const { authorizations, isAuthzInitialized } = authzReducer;
+  return { authorizations, isAuthzInitialized };
+};
+
+export default connect(mapStateToProps, { clearAuthorizations, setAuthorizations })(Home);

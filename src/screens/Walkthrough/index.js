@@ -41,7 +41,7 @@ class Walkthrough extends Component {
                   Platform.OS === "android" ? styles.aText : styles.iosText
                 }
               >
-                Explore the latest news from your mobile device
+                Explore the latest search and rescue news from your mobile device
               </Text>
               <Button
                 transparent
@@ -75,7 +75,7 @@ class Walkthrough extends Component {
                   Platform.OS === "android" ? styles.aText : styles.iosText
                 }
               >
-                Get News Feed of variuos domains at one place
+                Get News Feed of variuos rescues
               </Text>
               <Button
                 transparent
@@ -106,7 +106,7 @@ class Walkthrough extends Component {
                   Platform.OS === "android" ? styles.aText : styles.iosText
                 }
               >
-                Get going with the React Native Flat App Theme
+                Get going with SARBox
               </Text>
               <Button
                 transparent

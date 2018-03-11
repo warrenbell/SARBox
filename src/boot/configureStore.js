@@ -1,21 +1,23 @@
 // @flow
 import { AsyncStorage } from "react-native";
-import devTools from "remote-redux-devtools";
-import { createStore, applyMiddleware, compose } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension';
+// Below should cause app to log only when in production
+//import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { persistStore } from "redux-persist";
 import reducer from "../reducers";
 
-export default function configureStore(onCompletion: () => void): any {
-  const enhancer = compose(
-    applyMiddleware(thunk),
-    devTools({
-      name: "flatapp",
-      realtime: true
-    })
-  );
+const composeEnhancers = composeWithDevTools({
+  name: "SARBox",
+  realtime: true,
+  hostname: 'localhost',
+  port: 8000
+});
 
-  const store = createStore(reducer, enhancer);
+export default function configureStore(onCompletion: () => void): any {
+
+  const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
   persistStore(store, { storage: AsyncStorage }, onCompletion);
 
   return store;
