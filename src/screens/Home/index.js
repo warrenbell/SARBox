@@ -30,16 +30,12 @@ class Home extends Component {
 
   componentDidMount() {
     const { setAuthorizations } = this.props;
-    //console.warn("START BEFORE AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
     setAuthorizations([{allowed: ['read-home-message'], except: [], key: 'showHomeMessage'}], true);
-    //console.warn("START AFTER AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
   }
 
   componentWillUnmount() {
     const { clearAuthorizations } = this.props;
-    //console.warn("END BEFORE CLEAR AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
     clearAuthorizations();
-    //console.warn("END AFTER CLEAR AUTHORIZATIONS:\n" + JSON.stringify(this.props.authorizations, null, 2));
   }
 
   renderMessage() {
