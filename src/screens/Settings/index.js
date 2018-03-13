@@ -15,6 +15,7 @@ import {
   Grid,
   Col
 } from "native-base";
+import { NavigationActions } from 'react-navigation';
 
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
@@ -32,7 +33,7 @@ class Settings extends Component {
           <Left>
             <Button
               transparent
-              onPress={() => navigation.navigate("DrawerOpen")}
+              onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'DrawerOpen' }))}
             >
               <Icon active name="menu" />
             </Button>

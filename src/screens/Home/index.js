@@ -16,6 +16,7 @@ import {
   Col
 } from "native-base";
 import { connect } from "react-redux";
+import { NavigationActions } from 'react-navigation';
 
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
@@ -63,7 +64,7 @@ class Home extends Component {
           <Left>
             <Button
               transparent
-              onPress={() => navigation.navigate("DrawerOpen")}
+              onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'DrawerOpen' }))}
             >
               <Icon active name="menu" />
             </Button>
