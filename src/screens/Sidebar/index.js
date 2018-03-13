@@ -13,6 +13,7 @@ import {
 } from "native-base";
 import { Grid, Col } from "react-native-easy-grid";
 import { connect } from "react-redux";
+import { NavigationActions } from 'react-navigation';
 
 // Get login actions
 import { logoutUser } from "../../actions";
@@ -34,7 +35,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Home");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }))
               }}
               iconLeft
               style={styles.links}
@@ -48,7 +49,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Mapping");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'Mapping' }))
               }}
               iconLeft
               style={styles.links}
@@ -62,7 +63,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("CallOuts");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'CallOuts' }))
               }}
               iconLeft
               style={styles.links}
@@ -76,7 +77,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Missions");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'Missions' }))
               }}
               iconLeft
               style={styles.links}
@@ -90,7 +91,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Trainings");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'Trainings' }))
               }}
               iconLeft
               style={styles.links}
@@ -104,7 +105,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("TimeTracking");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'TimeTracking' }))
               }}
               iconLeft
               style={styles.links}
@@ -118,7 +119,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Social");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'Social' }))
               }}
               iconLeft
               style={styles.links}
@@ -132,7 +133,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.navigate("Settings");
+                navigation.dispatch(NavigationActions.navigate({ routeName:'Settings' }))
               }}
               iconLeft
               style={styles.links}
@@ -159,7 +160,7 @@ class SideBar extends Component {
                       LOG OUT
                     </Text>
                     <Text note style={{ color: "#fff" }}>
-                      
+
                     </Text>
                   </TouchableOpacity>
                 </Col>
@@ -167,7 +168,7 @@ class SideBar extends Component {
                   <TouchableOpacity
                     style={{ alignSelf: "flex-end" }}
                     onPress={() => {
-                      navigation.navigate("Profile");
+                      navigation.dispatch(NavigationActions.navigate({ routeName:'Profile' }))
                     }}
                   >
                     <Thumbnail

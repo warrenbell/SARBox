@@ -54,6 +54,6 @@ const createUserSuccess = (dispatch, user, navigation) => {
   dispatch({ type: "LOGIN_USER_SUCCESS", payload: user });
   // reinitialize redux form
   dispatch(initialize('login', {}));
-  navigation.navigate("Home");
+  navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }))
   //Actions.main();
 };

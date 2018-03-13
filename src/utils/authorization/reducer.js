@@ -1,6 +1,3 @@
-
-// Everyone should be able to login
-// Not using permissionError maybe use when checking permissions in actions
 const INITIAL_STATE = {
   permissions: [],
   authorizations: {},

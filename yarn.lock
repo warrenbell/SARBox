@@ -5050,6 +5050,12 @@ react-native@0.48.4:
     xtend ">=4.0.0 <4.1.0-0"
     yargs "^6.4.0"
 
+react-navigation-redux-helpers@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-navigation-redux-helpers/-/react-navigation-redux-helpers-1.0.3.tgz#46dd9f83bf4ba74ca43d346575c169137f2eaac9"
+  dependencies:
+    invariant "^2.2.2"
+
 react-navigation@1.0.0-beta.11:
   version "1.0.0-beta.11"
   resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-1.0.0-beta.11.tgz#4271edb23cdbcc6eb88602f7fde0a77f0ef7a160"

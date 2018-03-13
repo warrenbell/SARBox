@@ -13,7 +13,7 @@ class CustomHeader extends Component {
     return (
       <Header hasTabs={this.props.hasTabs}>
         <Left>
-          <Button transparent onPress={() => navigation.navigate("DrawerOpen")}>
+          <Button transparent onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'DrawerOpen' }))}>
             <Icon active name="menu" />
           </Button>
         </Left>

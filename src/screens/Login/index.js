@@ -18,6 +18,7 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import { Field, reduxForm, change, initialize as initializeForm, SubmissionError } from "redux-form";
+import { NavigationActions } from 'react-navigation';
 
 import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
@@ -44,7 +45,8 @@ const onSubmitSuccess = (result, dispatch, props) => {
   // console.warn("onSubmitSuccess CALLED");
   const { initializeForm, navigation } = props;
   initializeForm("login");
-  navigation.navigate("Home");
+  // new way of navigating or we can do this via the nav reducer
+  navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }));
 }
 
 // redux-form calls onSubmitFail
@@ -71,7 +73,7 @@ class LoginForm extends Component {
   componentDidMount() {
     const { user, navigation } = this.props;
     if(user) {
-      navigation.navigate("Home");
+      navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }));
     }
   }
 
@@ -204,7 +206,7 @@ class LoginForm extends Component {
                       small
                       transparent
                       style={{ alignSelf: "flex-start" }}
-                      onPress={() => navigation.navigate("SignUp")}
+                      onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'SignUp' }))}
                     >
                       <Text style={styles.helpBtns}>Create Account</Text>
                     </Button>
@@ -214,7 +216,7 @@ class LoginForm extends Component {
                       small
                       transparent
                       style={{ alignSelf: "flex-end" }}
-                      onPress={() => navigation.navigate("ForgotPassword")}
+                      onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'ForgotPassword' }))}
                     >
                       <Text style={styles.helpBtns}>Forgot Password</Text>
                     </Button>
@@ -226,7 +228,7 @@ class LoginForm extends Component {
                     small
                     transparent
                     style={styles.skipBtn}
-                    onPress={() => navigation.navigate("Walkthrough")}
+                    onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'Walkthrough' }))}
                   >
                     <Text
                       style={

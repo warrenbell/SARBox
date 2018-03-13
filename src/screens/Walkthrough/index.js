@@ -3,13 +3,16 @@ import React, { Component } from "react";
 import { Platform, Dimensions, StatusBar, View } from "react-native";
 import { Container, Content, Text, Button, Icon } from "native-base";
 import Carousel from "react-native-carousel-view";
+import { NavigationActions } from 'react-navigation';
 
 import styles from "./styles";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
+
 class Walkthrough extends Component {
   render() {
+    const navigation = this.props.navigation;
     return (
       <Container>
         <StatusBar barStyle="light-content" />
@@ -46,11 +49,11 @@ class Walkthrough extends Component {
               <Button
                 transparent
                 rounded
-                onPress={() => this.props.navigation.navigate("Drawer")}
+                onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName: 'Drawer' }))}
                 style={styles.Button}
               >
                 <Text style={{ color: "#FFF", fontWeight: "600" }}>
-                  Skip To App
+                  Skip To App 2
                 </Text>
               </Button>
             </View>
@@ -80,7 +83,7 @@ class Walkthrough extends Component {
               <Button
                 transparent
                 rounded
-                onPress={() => this.props.navigation.navigate("Drawer")}
+                onPress={() => this.props.navigation.dispatch(NavigationActions.navigate({ routeName:'Drawer' }))}
                 style={styles.Button}
               >
                 <Text style={{ color: "#FFF", fontWeight: "600" }}>
@@ -111,7 +114,7 @@ class Walkthrough extends Component {
               <Button
                 transparent
                 rounded
-                onPress={() => this.props.navigation.navigate("Drawer")}
+                onPress={() => this.props.navigation.dispatch(NavigationActions.navigate({ routeName:'Drawer' }))}
                 style={styles.Button}
               >
                 <Text style={{ color: "#FFF", fontWeight: "600" }}>
