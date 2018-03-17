@@ -1,15 +1,15 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 
-import loginReducer from "../screens/Login/reducer";
+import authReducer from "../utils/authentication/reducer";
 
 import authzReducer from "../utils/authorization/reducer";
 
-import navReducer from "../utils/navigation/reducers";
+import navReducer from "../utils/navigation/reducer";
 
 export default combineReducers({
   form: formReducer,
-  loginReducer,
+  authReducer,
   authzReducer,
   navReducer
 });

@@ -1,7 +1,7 @@
 export {
   loginUser,
   logoutUser
-} from "../screens/Login/actions";
+} from "../utils/authentication/actions";
 
 export {
   addPermissions,

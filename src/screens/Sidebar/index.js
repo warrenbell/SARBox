@@ -13,7 +13,6 @@ import {
 } from "native-base";
 import { Grid, Col } from "react-native-easy-grid";
 import { connect } from "react-redux";
-import { NavigationActions } from 'react-navigation';
 
 // Get login actions
 import { logoutUser } from "../../actions";
@@ -22,8 +21,7 @@ import styles from "./style";
 
 class SideBar extends Component {
   render() {
-    const navigation = this.props.navigation;
-    const { logout } = this.props;
+    const { logoutUser, navigation } = this.props;
     return (
       <Container>
         <Image
@@ -35,7 +33,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }))
+                navigation.dispatch({ type:'NAV_HOME' })
               }}
               iconLeft
               style={styles.links}
@@ -49,7 +47,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'Mapping' }))
+                navigation.dispatch({ type:'NAV_MAPPING' })
               }}
               iconLeft
               style={styles.links}
@@ -63,7 +61,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'CallOuts' }))
+                navigation.dispatch({ type:'NAV_CALL_OUTS' })
               }}
               iconLeft
               style={styles.links}
@@ -77,7 +75,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'Missions' }))
+                navigation.dispatch({ type:'NAV_MISSIONS' })
               }}
               iconLeft
               style={styles.links}
@@ -91,7 +89,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'Trainings' }))
+                navigation.dispatch({ type:'NAV_TRAININGS' })
               }}
               iconLeft
               style={styles.links}
@@ -105,7 +103,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'TimeTracking' }))
+                navigation.dispatch({ type:'NAV_TIME_TRACKING' })
               }}
               iconLeft
               style={styles.links}
@@ -119,7 +117,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'Social' }))
+                navigation.dispatch({ type:'NAV_SOCIAL' })
               }}
               iconLeft
               style={styles.links}
@@ -133,7 +131,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch(NavigationActions.navigate({ routeName:'Settings' }))
+                navigation.dispatch({ type:'NAV_SETTINGS' })
               }}
               iconLeft
               style={styles.links}
@@ -149,7 +147,7 @@ class SideBar extends Component {
                 <Col>
                   <TouchableOpacity
                     onPress={() => {
-                      logout(navigation);
+                      logoutUser();
                     }}
                     style={{
                       alignSelf: "flex-start",
@@ -168,7 +166,7 @@ class SideBar extends Component {
                   <TouchableOpacity
                     style={{ alignSelf: "flex-end" }}
                     onPress={() => {
-                      navigation.dispatch(NavigationActions.navigate({ routeName:'Profile' }))
+                      navigation.dispatch({ type:'NAV_SETTINGS' })
                     }}
                   >
                     <Thumbnail
@@ -186,14 +184,8 @@ class SideBar extends Component {
   }
 }
 
-function bindAction(dispatch) {
-  return {
-    logout: (navigation) => dispatch(logoutUser(navigation))
-  };
-}
-
 const mapStateToProps = () => {
   return {};
 };
 
-export default connect(mapStateToProps, bindAction)(SideBar);
+export default connect(mapStateToProps, { logoutUser })(SideBar);

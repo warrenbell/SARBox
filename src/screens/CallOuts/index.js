@@ -15,7 +15,6 @@ import {
   Grid,
   Col
 } from "native-base";
-import { NavigationActions } from 'react-navigation';
 
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
@@ -25,7 +24,7 @@ const headerLogo = require("../../../assets/header-logo.png");
 
 class CallOuts extends Component {
   render() {
-    const navigation = this.props.navigation;
+    const { navigation } = this.props;
     const primary = require("../../theme/variables/commonColor").brandPrimary;
     return (
       <Container>
@@ -33,7 +32,7 @@ class CallOuts extends Component {
           <Left>
             <Button
               transparent
-              onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'DrawerOpen' }))}
+              onPress={() => navigation.dispatch({ type:'NAV_DRAWER_OPEN' })}
             >
               <Icon active name="menu" />
             </Button>

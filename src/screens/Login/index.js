@@ -18,7 +18,6 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import { Field, reduxForm, change, initialize as initializeForm, SubmissionError } from "redux-form";
-import { NavigationActions } from 'react-navigation';
 
 import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
@@ -40,15 +39,6 @@ const passwordMaxLength = validators.maxLength(15, "No more than 15 characters")
 const passwordMinLength = validators.minLength(8, "No less than 8 characters");
 const alphaNumeric = validators.alphaNumericNoSpaces("Must be letters and numbers only")
 
-// redux-form calls onSubmitSuccess
-const onSubmitSuccess = (result, dispatch, props) => {
-  // console.warn("onSubmitSuccess CALLED");
-  const { initializeForm, navigation } = props;
-  initializeForm("login");
-  // new way of navigating or we can do this via the nav reducer
-  navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }));
-}
-
 // redux-form calls onSubmitFail
 const onSubmitFail = (errors, dispatch, submitError, props) => {
   // console.warn("onSubmitFail CALLED");
@@ -62,7 +52,7 @@ const onSubmitFail = (errors, dispatch, submitError, props) => {
       });
   }
   const oldUsernameValue = props.values.username;
-  dispatch(initializeForm("login"));
+  dispatch(initializeForm("loginForm"));
   dispatch(change("login", "username", oldUsernameValue));
 }
 
@@ -73,7 +63,7 @@ class LoginForm extends Component {
   componentDidMount() {
     const { user, navigation } = this.props;
     if(user) {
-      navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }));
+      navigation.dispatch({ type:'LOGIN' });
     }
   }
 
@@ -173,8 +163,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const navigation = this.props.navigation;
-    const { handleSubmit, submitting} = this.props;
+    const { handleSubmit, submitting, navigation } = this.props;
     //console.warn("PROPS:\n" + JSON.stringify(this.props, null, 2));
     //console.warn("ERROR:\n" + JSON.stringify(error, null, 2));
     return (
@@ -206,7 +195,7 @@ class LoginForm extends Component {
                       small
                       transparent
                       style={{ alignSelf: "flex-start" }}
-                      onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'SignUp' }))}
+                      onPress={() => navigation.dispatch({ type:'NAV_SIGN_UP' })}
                     >
                       <Text style={styles.helpBtns}>Create Account</Text>
                     </Button>
@@ -216,7 +205,7 @@ class LoginForm extends Component {
                       small
                       transparent
                       style={{ alignSelf: "flex-end" }}
-                      onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'ForgotPassword' }))}
+                      onPress={() => navigation.dispatch({ type:'NAV_FORGOT_PASSWORD' })}
                     >
                       <Text style={styles.helpBtns}>Forgot Password</Text>
                     </Button>
@@ -228,7 +217,7 @@ class LoginForm extends Component {
                     small
                     transparent
                     style={styles.skipBtn}
-                    onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'Walkthrough' }))}
+                    onPress={() => navigation.dispatch({ type:'NAV_WALKTHROUGH' })}
                   >
                     <Text
                       style={
@@ -253,15 +242,14 @@ class LoginForm extends Component {
 
 // Set-up redux-form
 const Login = reduxForm({
-  form: "login",
-  onSubmitSuccess: onSubmitSuccess,
+  form: "loginForm",
   onSubmitFail: onSubmitFail,
   persistentSubmitErrors: true
 })(LoginForm);
 
 // loginError, user gets bound to props
-const mapStateToProps = ({ loginReducer }) => {
-  const { loginError, user } = loginReducer;
+const mapStateToProps = ({ authReducer }) => {
+  const { loginError, user } = authReducer;
   return { loginError, user };
 };
 

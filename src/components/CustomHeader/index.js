@@ -9,11 +9,11 @@ const headerLogo = require("../../../assets/header-logo.png");
 
 class CustomHeader extends Component {
   render() {
-    const navigation = this.props.navigation;
+    const { navigation, hasTabs } = this.props;
     return (
-      <Header hasTabs={this.props.hasTabs}>
+      <Header hasTabs={ hasTabs }>
         <Left>
-          <Button transparent onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'DrawerOpen' }))}>
+          <Button transparent onPress={() => navigation.dispatch({ type:'NAV_DRAWER_OPEN' })}>
             <Icon active name="menu" />
           </Button>
         </Left>

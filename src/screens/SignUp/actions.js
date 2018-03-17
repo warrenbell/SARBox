@@ -1,3 +1,5 @@
+// This code is incomplete
+
 import {initialize} from 'redux-form';
 
 import { NavigationActions } from "react-navigation";
@@ -54,6 +56,6 @@ const createUserSuccess = (dispatch, user, navigation) => {
   dispatch({ type: "LOGIN_USER_SUCCESS", payload: user });
   // reinitialize redux form
   dispatch(initialize('login', {}));
-  navigation.dispatch(NavigationActions.navigate({ routeName:'Home' }))
+  navigation.dispatch({ type:'NAV_HOME' });
   //Actions.main();
 };

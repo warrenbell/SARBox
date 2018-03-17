@@ -1,6 +1,6 @@
 // roles was refactored to be permissions
 
-export const isAuthorized = (permissions, allowed, except) => {
+const isAuthorized = (permissions, allowed, except) => {
   // Root super user permission check '*'
   if (permissions.length > 0 && permissions.some(elem => elem == '*')) {
     return true;
@@ -17,4 +17,4 @@ export const isAuthorized = (permissions, allowed, except) => {
   return true;
 }
 
-export default { isAuthorized, "test": "test" };
+export { isAuthorized };

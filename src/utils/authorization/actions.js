@@ -1,7 +1,7 @@
 // A lot of code was used from the react-redux-permissions package located at
 // https://github.com/shizpi/react-redux-permissions
 
-import { isAuthorized } from "./core";
+import { isAuthorized } from "./tools";
 
 //import getStore from  "../../boot/configureStore";
 
@@ -47,19 +47,20 @@ export const clearAuthorizations = () => {
 // Always use redux-thunk to get state in actions. Do not use import getStore from  "../../boot/configureStore";
 // Check if user is authorized based on permissions and set a key true or false.
 // The @checks array allows you to make many different checks while only changing state once.
-// @checks is an array structured like this: [{allowed: ['permission1', 'permission2'], except: ['permission1', 'permission2'], key: 'keyName'}, {...}, {...}]
+// @checks is an array structured like this: [{allowed: ['permission1', 'permission2'], except: ['permission1', 'permission2'], key: 'keyName', error: 'Not Autorized'}, {...}, {...}]
 // @reset will clear all old authorization keys out and start from scratch
 // Example setAuthorizations([{allowed: ['read-home-message'], except: [], key: 'showHomeMessage'}], true);
 export const setAuthorizations = (checks, reset) => {
+  //console.warn("setAuthorizations CALLED");
   return (dispatch, getState) => {
        const { authzReducer } = getState();
        const { permissions } = authzReducer;
        var authorizations = {};
        checks.forEach((check) => {
          if(isAuthorized(permissions, check.allowed, check.except)) {
-           authorizations[check.key] = true;
+           authorizations[check.key] = { allowed:true, authzErrorMessage: check.error };
          } else {
-           authorizations[check.key] = false;
+           authorizations[check.key] = { allowed:false, authzErrorMessage: check.error };
          }
        });
        if(reset) {

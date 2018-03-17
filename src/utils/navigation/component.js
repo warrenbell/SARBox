@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, NavigationActions } from "react-navigation";
 
-import AppNavigator from "../../navigators";
+import AppNavigator from "./navigators";
 
-import { navAddListener } from '../../utils';
+import { navAddListener } from './tools';
 
 
 class AppWithNavigationState extends Component {

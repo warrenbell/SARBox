@@ -16,12 +16,8 @@ import {
   Col
 } from "native-base";
 import { connect } from "react-redux";
-import { NavigationActions } from 'react-navigation';
 
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
-
-// Get authorization actions
-import { clearAuthorizations, setAuthorizations } from "../../actions";
 
 import styles from "./styles";
 
@@ -29,22 +25,13 @@ const headerLogo = require("../../../assets/header-logo.png");
 
 class Home extends Component {
 
-  componentDidMount() {
-    const { setAuthorizations } = this.props;
-    setAuthorizations([{allowed: ['read-home-message'], except: [], key: 'showHomeMessage'}], true);
-  }
-
-  componentWillUnmount() {
-    const { clearAuthorizations } = this.props;
-    clearAuthorizations();
-  }
-
   renderMessage() {
     const { authorizations, isAuthzInitialized } = this.props;
-    if(!isAuthzInitialized) {
+    // Leave this out for now need to initialize authorizations with something if user is not logged in
+    /*if(!isAuthzInitialized) {
       return null;
-    }
-    if(authorizations['showHomeMessage']) {
+    }*/
+    if(authorizations['showHomeMessage'] && authorizations['showHomeMessage'].allowed) {
       return (
         <Text style={styles.overviewHeader}>Home</Text>
       );
@@ -56,7 +43,7 @@ class Home extends Component {
   }
 
   render() {
-    const navigation = this.props.navigation;
+    const { navigation } = this.props;
     const primary = require("../../theme/variables/commonColor").brandPrimary;
     return (
       <Container>
@@ -64,7 +51,7 @@ class Home extends Component {
           <Left>
             <Button
               transparent
-              onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName:'DrawerOpen' }))}
+              onPress={() => navigation.dispatch({ type:'NAV_DRAWER_OPEN' })}
             >
               <Icon active name="menu" />
             </Button>
@@ -98,4 +85,4 @@ const mapStateToProps = ({ authzReducer }) => {
   return { authorizations, isAuthzInitialized };
 };
 
-export default connect(mapStateToProps, { clearAuthorizations, setAuthorizations })(Home);
+export default connect(mapStateToProps, null)(Home);

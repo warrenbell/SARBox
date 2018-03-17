@@ -9,7 +9,7 @@ import { createStore, applyMiddleware } from "redux";
 // Redux-thunk middleware
 import thunk from "redux-thunk";
 // React-Navigation middleware
-import { navMiddleware } from '../utils/navigation/utils';
+import { navMiddleware } from '../utils/navigation/tools';
 
 import { persistStore } from "redux-persist";
 import reducer from "../reducers";

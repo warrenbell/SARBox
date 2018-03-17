@@ -1,27 +1,28 @@
 import React from "react";
 
 // Screens Main StackNavigator
-import Login from "../../../screens/Login/";
-import SignUp from "../../../screens/SignUp/";
-import ForgotPassword from "../../../screens/ForgotPassword";
-import Walkthrough from "../../../screens/Walkthrough/";
+import Login from "../../screens/Login/";
+import SignUp from "../../screens/SignUp/";
+import ForgotPassword from "../../screens/ForgotPassword";
+import Walkthrough from "../../screens/Walkthrough/";
+import TimeEntry from "../../screens/TimeEntry/";
 
 // Screens Drawer DrawerNavigator
-import Home from "../../../screens/Home/";
-import Missions from "../../../screens/Missions/";
-import Trainings from "../../../screens/Trainings/";
-import TimeTracking from "../../../screens/TimeTracking/";
-import Mapping from "../../../screens/Mapping/";
-import CallOuts from "../../../screens/CallOuts/";
-import Social from "../../../screens/Social/";
-import Settings from "../../../screens/Settings";
+import Home from "../../screens/Home/";
+import Missions from "../../screens/Missions/";
+import Trainings from "../../screens/Trainings/";
+import TimeTracking from "../../screens/TimeTracking/";
+import Mapping from "../../screens/Mapping/";
+import CallOuts from "../../screens/CallOuts/";
+import Social from "../../screens/Social/";
+import Settings from "../../screens/Settings";
 
 // Other components
-import Sidebar from "../../../screens/Sidebar";
+import Sidebar from "../../screens/Sidebar";
 
 import { StackNavigator, DrawerNavigator } from "react-navigation";
 
-const Drawer = DrawerNavigator(
+const HomeDrawer = DrawerNavigator(
   {
     Home: { screen: Home },
     Missions: { screen: Missions },
@@ -44,11 +45,12 @@ const AppNavigator = StackNavigator(
     SignUp: { screen: SignUp },
     ForgotPassword: { screen: ForgotPassword },
     Walkthrough: { screen: Walkthrough },
-    Drawer: { screen: Drawer }
+    TimeEntry: { screen: TimeEntry },
+    HomeDrawer: { screen: HomeDrawer }
   },
   {
     index: 0,
-    initialRouteName: "Login",
+    initialRouteName: "HomeDrawer",
     headerMode: "none"
   }
 );

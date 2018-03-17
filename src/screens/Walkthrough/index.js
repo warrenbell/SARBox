@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Platform, Dimensions, StatusBar, View } from "react-native";
 import { Container, Content, Text, Button, Icon } from "native-base";
 import Carousel from "react-native-carousel-view";
-import { NavigationActions } from 'react-navigation';
 
 import styles from "./styles";
 
@@ -12,7 +11,7 @@ const deviceWidth = Dimensions.get("window").width;
 
 class Walkthrough extends Component {
   render() {
-    const navigation = this.props.navigation;
+    const { navigation } = this.props;
     return (
       <Container>
         <StatusBar barStyle="light-content" />
@@ -49,7 +48,7 @@ class Walkthrough extends Component {
               <Button
                 transparent
                 rounded
-                onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName: 'Drawer' }))}
+                onPress={() => navigation.dispatch({ type:'NAV_HOME' })}
                 style={styles.Button}
               >
                 <Text style={{ color: "#FFF", fontWeight: "600" }}>
@@ -83,7 +82,7 @@ class Walkthrough extends Component {
               <Button
                 transparent
                 rounded
-                onPress={() => this.props.navigation.dispatch(NavigationActions.navigate({ routeName:'Drawer' }))}
+                onPress={() => navigation.dispatch({ type:'NAV_HOME' })}
                 style={styles.Button}
               >
                 <Text style={{ color: "#FFF", fontWeight: "600" }}>
@@ -114,7 +113,7 @@ class Walkthrough extends Component {
               <Button
                 transparent
                 rounded
-                onPress={() => this.props.navigation.dispatch(NavigationActions.navigate({ routeName:'Drawer' }))}
+                onPress={() => navigation.dispatch({ type:'NAV_HOME' })}
                 style={styles.Button}
               >
                 <Text style={{ color: "#FFF", fontWeight: "600" }}>

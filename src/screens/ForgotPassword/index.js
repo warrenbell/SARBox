@@ -89,6 +89,7 @@ class ForgotPasswordForm extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <Container>
         <StatusBar barStyle="light-content" />
@@ -127,7 +128,7 @@ class ForgotPasswordForm extends Component {
               paddingRight: 20
             }}
           >
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
+            <Button transparent onPress={() => navigation.dispatch({ type:'NAV_BACK' })}>
               <Text style={styles.helpBtns}>Back To Login</Text>
             </Button>
           </Footer>

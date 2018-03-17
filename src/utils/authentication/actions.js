@@ -3,7 +3,7 @@ import {initialize} from 'redux-form';
 // couchDB web Admin
 // https://j8d563j.sarbox.info:6984/_utils/
 
-import { NavigationActions } from "react-navigation";
+import { setInitialAuthorizations } from "../authorization/initialize";
 
 import axios from 'axios';
 
@@ -14,12 +14,6 @@ var couchDbMainAuth = axios.create({
     "Content-Type": "application/json"
   },
   withCredentials: true
-});
-
-// This resets the navigation stack with only Login at start
-const navigateToLogin = NavigationActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: "Login" })]
 });
 
 // Asynchronous action with redux-thunk returns a function instead of a redux action object
@@ -35,7 +29,10 @@ export const loginUser = (username, password, formResolve, formReject) => {
       //console.warn("RESPONSE:\n" + JSON.stringify(response, null, 2));
       const { data } = response;
       dispatch({ type: "RESET_PERMISSIONS", permissions: data.permissions });
+      dispatch(setInitialAuthorizations());
       dispatch({ type: "LOGIN_USER_SUCCESS", user: data });
+      dispatch({ type: "NAV_LOGIN" });
+      dispatch(initialize("loginForm"));
       formResolve(response);
     }).catch(error => {
       //console.warn("ERROR:\n" + JSON.stringify(error, null, 2));
@@ -46,18 +43,18 @@ export const loginUser = (username, password, formResolve, formReject) => {
         loginError = "Login Failed";
       }
       dispatch({ type: "LOGIN_USER_FAIL", loginError: loginError });
-      formReject({"loginError": loginError});
+      formReject({ loginError });
     });
   };
 };
 
-export const logoutUser = (navigation) => {
+export const logoutUser = () => {
   //console.warn("logoutUser CALLED");
   return (dispatch) => {
-    navigation.dispatch(navigateToLogin);
     dispatch({ type: "LOGOUT_USER" });
     dispatch({ type: "CLEAR_AUTHORIZATIONS" });
     dispatch({ type: "CLEAR_PERMISSIONS" });
+    dispatch({ type: "NAV_LOGOUT_RESET" });
   };
 };
 
