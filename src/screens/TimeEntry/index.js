@@ -16,7 +16,9 @@ import {
   Body,
   View
 } from "native-base";
-import styles from "./styles";
+import DatePicker from "react-native-datepicker";
+
+import { styles, getDatePickerCustomStyles } from "./styles";
 
 const headerLogo = require("../../../assets/header-logo.png");
 const primary = require("../../theme/variables/commonColor").brandPrimary;
@@ -37,7 +39,8 @@ class TimeEntry extends Component {
       offset: {
         x: 0,
         y: 0
-      }
+      },
+      date:null
     };
   }
 
@@ -88,10 +91,19 @@ class TimeEntry extends Component {
                 name="ios-calendar-outline"
                 style={{ color: "rgba(0,0,0,0.5)", marginTop: 3 }}
               />
-              <Input
+              <DatePicker
+                style={{ width: 200 }}
+                date={this.state.date}
+                mode="date"
+                showIcon={false}
                 placeholder="Date"
-                placeholderTextColor="rgba(0,0,0,0.3)"
-                style={styles.input}
+                format="MMMM D, YYYY"
+                minDate="May 1, 2016"
+                maxDate="June 1, 2019"
+                confirmBtnText="OK"
+                cancelBtnText="Cancel"
+                customStyles={getDatePickerCustomStyles()}
+                onDateChange={(date) => {this.setState({date: date})}}
               />
             </Item>
 

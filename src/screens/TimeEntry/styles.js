@@ -3,7 +3,9 @@ const { Dimensions, Platform } = React;
 
 const primary = require("../../theme/variables/commonColor").brandPrimary;
 
-export default {
+import variable from "../../theme/variables/platform";
+
+const styles = {
   header: {
     width: Dimensions.get("window").width,
     paddingLeft: 15,
@@ -104,3 +106,104 @@ export default {
     backgroundColor: primary
   }
 };
+
+
+
+const dateInput = (variables = variable) => {
+	const dateInput = {
+		color: variables.inputColor,
+		paddingLeft: 5,
+		paddingRight: 5,
+		fontSize: variables.inputFontSize,
+		lineHeight: variables.inputLineHeight,
+    flex: 1,
+    height: variables.inputHeightBase,
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+	};
+
+	return dateInput;
+};
+
+const getDatePickerCustomStyles = (variables = variable) => {
+  const datePickerStyles = {
+    dateTouch: {
+      width: 142
+    },
+    dateTouchBody: {
+      flexDirection: 'row',
+      height: variables.inputHeightBase,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    dateIcon: {
+      width: 32,
+      height: 32,
+      marginLeft: 5,
+      marginRight: 5
+    },
+    dateInput: {
+      flex: 1,
+      flexDirection: 'row',
+      height: variables.inputHeightBase,
+      borderWidth: 0,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingLeft: 10
+    },
+    dateText: {
+      color: variables.inputColor,
+      fontSize: variables.inputFontSize
+    },
+    placeholderText: {
+      color: '#c9c9c9',
+      fontSize: variables.inputFontSize
+    },
+    btnTextConfirm: {
+      fontSize: 16,
+      color: variables.inputColor
+    },
+    btnTextCancel: {
+      fontSize: 16,
+      color: variables.inputColor
+    },
+    btnCancel: {
+      left: 0
+    },
+    btnConfirm: {
+      right: 0
+    }/*,
+    datePickerMask: {
+      flex: 1,
+      alignItems: 'flex-end',
+      flexDirection: 'row',
+      backgroundColor: '#00000077'
+    },
+    datePickerCon: {
+      backgroundColor: '#fff',
+      height: 0,
+      overflow: 'hidden'
+    },
+    btnText: {
+      position: 'absolute',
+      top: 0,
+      height: 42,
+      padding: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    datePicker: {
+      marginTop: 42,
+      borderTopColor: '#ccc',
+      borderTopWidth: 1
+    },
+    disabled: {
+      backgroundColor: '#eee'
+    }*/
+  };
+  return datePickerStyles;
+};
+
+export { styles, getDatePickerCustomStyles };
