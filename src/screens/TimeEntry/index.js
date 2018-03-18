@@ -62,7 +62,7 @@ class TimeEntry extends Component {
         <Content
           showsVerticalScrollIndicator={false}
           contentOffset={this.state.offset}
-          scrollEnabled={false}
+          scrollEnabled={true}
         >
           <View style={styles.bg}>
             <View style={styles.feedbackHeaderContainer}>

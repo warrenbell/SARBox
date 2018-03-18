@@ -62,16 +62,16 @@ class TimeTracking extends Component {
       >
         <View style={styles.newsContent}>
           <Text numberOfLines={1} style={styles.newsHeader2}>
-            {data.timeType}
+            {data.type}
           </Text>
           <Text numberOfLines={1} style={styles.newsHeader}>
-            {data.timeNote}
+            {data.note}
           </Text>
           <Grid style={{ marginTop: 10 }}>
             <Col style={{ flexDirection: "row" }}>
               <Icon name="ios-calendar-outline" style={styles.timeIcon} />
               <Text style={styles.newsLink}>
-                {data.timeDate}
+                {data.date}
               </Text>
             </Col>
             <Col style={{ flexDirection: "row" }}>
@@ -83,7 +83,7 @@ class TimeTracking extends Component {
             <Col style={{ flexDirection: "row" }}>
               <Icon name="ios-car-outline" style={styles.timeIcon} />
               <Text style={styles.newsTypeText}>
-                {data.mileage + (data.mileage === 1 ? ' mile' : ' miles')}
+                {data.miles + (data.miles === 1 ? ' mile' : ' miles')}
               </Text>
             </Col>
           </Grid>

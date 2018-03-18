@@ -6,8 +6,8 @@ const primary = require("../../theme/variables/commonColor").brandPrimary;
 
 export default {
   feedbackHeader: {
-    fontSize: 22,
-    paddingBottom: 10,
+    fontSize: 20,
+    paddingBottom: 5,
     fontWeight: "600",
     alignSelf: "center"
   },
