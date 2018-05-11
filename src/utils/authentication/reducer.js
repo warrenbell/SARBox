@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   loginError: '',
-  user: null
+  isLogedIn: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -8,7 +8,7 @@ export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
     case "LOGIN_USER_SUCCESS":
-      return { ...INITIAL_STATE, user: action.user };
+      return { ...INITIAL_STATE, isLogedIn: true };
     case "LOGIN_USER_FAIL":
       return { ...INITIAL_STATE, loginError: action.loginError };
     case "LOGOUT_USER":

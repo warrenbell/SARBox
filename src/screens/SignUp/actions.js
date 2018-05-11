@@ -53,7 +53,7 @@ const createUserFail = (dispatch, loginError) => {
 
 const createUserSuccess = (dispatch, user, navigation) => {
   //console.warn("USER:\n" + JSON.stringify(user, null, 2));
-  dispatch({ type: "LOGIN_USER_SUCCESS", payload: user });
+  dispatch({ type: "LOGIN_USER_SUCCESS" });
   // reinitialize redux form
   dispatch(initialize('login', {}));
   navigation.dispatch({ type:'NAV_HOME' });

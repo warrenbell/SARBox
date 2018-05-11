@@ -23,10 +23,36 @@ import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
 
 // Get login actions
-import { loginUser } from "../../actions";
+import { loginUser, logoutUser } from "../../actions";
 
 // Get form Validators
 import validators from "../../utils/validators"
+
+// Just using the following PouchDb lines of code to delete db from AsynchStorage
+// DB user time_entries
+
+import PouchDB from 'pouchdb-react-native';
+PouchDB.plugin(require('pouchdb-find'));
+const db = new PouchDB('teams');
+/*
+db.put({
+  "_id": "_design/replication",
+  "filters": {
+    "byUserTeams": "function (doc, req) {  var teams = req.query.teams.split(',');  for(var i = 0; i < teams.length; i++) {    if(doc._id === 'team-' + teams[i]) {      return true;    }  }  return false; }"
+  }
+}).then(response => {
+  console.warn("response:\n" + JSON.stringify(response, null, 2));
+}).catch(error => {
+  console.warn("error:\n" + JSON.stringify(error, null, 2));
+});
+*/
+//db.destroy();
+
+/*db.getIndexes().then(function (result) {
+  console.warn("INDEXES:\n" + JSON.stringify(result, null, 2));
+}).catch(function (err) {
+  console.log(err);
+});*/
 
 // Get images
 const bg = require("../../../assets/bg.png");
@@ -38,6 +64,18 @@ const passwordRequired = validators.required("A password is required");
 const passwordMaxLength = validators.maxLength(15, "No more than 15 characters");
 const passwordMinLength = validators.minLength(8, "No less than 8 characters");
 const alphaNumeric = validators.alphaNumericNoSpaces("Must be letters and numbers only")
+
+const normalizeUsername = (value) => {
+  // convert to lowrcase
+  const newValue = value.toLowerCase();
+  // remove everything but numbers and lowercase letters
+  return newValue.replace(/[^a-z0-9]/g, '');
+};
+
+const normalizePassword = (value) => {
+  // remove everything but numbers and lowercase letters
+  return value.replace(/[^a-zA-Z0-9]/g, '');
+};
 
 // redux-form calls onSubmitFail
 const onSubmitFail = (errors, dispatch, submitError, props) => {
@@ -61,10 +99,32 @@ class LoginForm extends Component {
   textInput: Any;
 
   componentDidMount() {
-    const { user, navigation } = this.props;
-    if(user) {
-      navigation.dispatch({ type:'LOGIN' });
-    }
+
+// I am here what a mess 4-28-18
+const test = this.props;
+
+/*this.navListener = this.props.navigation.navAddListener(
+  'action',
+  payload => {
+    console.warn('action', payload);
+  }
+);*/
+
+    //this.navListener = this.props.navigation.navAddListener('didFocus', () => console.log('login did focus')),
+
+  //const listener = this.props.navigation.navAddListener('willFocus', () => console.warn('will focus'));
+  //this.props.navigation.navAddListener('willBlur', () => console.warn('will blur')),
+  //this.props.navigation.navAddListener('didFocus', () => console.warn('did focus')),
+//this.props.navigation.navAddListener('didBlur', () => console.warn('did blur')),
+//console.warn("this.props.navigation.state:\n" + JSON.stringify(this.props.navigation.state, null, 2));
+
+    console.warn("componentDidMount in Login called");
+    const { logoutUser } = this.props;
+    //logoutUser();
+  }
+
+  componentWillUnmount() {
+    //this.navListener.remove();
   }
 
   // redux-form handleSubmit calls onSubmit
@@ -163,6 +223,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    console.warn("render in Login called");
     const { handleSubmit, submitting, navigation } = this.props;
     //console.warn("PROPS:\n" + JSON.stringify(this.props, null, 2));
     //console.warn("ERROR:\n" + JSON.stringify(error, null, 2));
@@ -180,12 +241,14 @@ class LoginForm extends Component {
                   name="username"
                   component={this.renderInput}
                   type="text"
+                  normalize={ normalizeUsername }
                   validate={[alphaNumeric, usernameRequired]}
                 />
                 <Field
                   name="password"
                   component={this.renderInput}
                   type="password"
+                  normalize={ normalizePassword }
                   validate={[alphaNumeric, passwordMinLength, passwordMaxLength, passwordRequired]}
                 />
                 {this.renderLoginButton()}
@@ -247,14 +310,14 @@ const Login = reduxForm({
   persistentSubmitErrors: true
 })(LoginForm);
 
-// loginError, user gets bound to props
+// loginError, isLogedIn gets bound to props
 const mapStateToProps = ({ authReducer }) => {
-  const { loginError, user } = authReducer;
-  return { loginError, user };
+  const { loginError, isLogedIn } = authReducer;
+  return { loginError, isLogedIn };
 };
 
 // Auto binding of actions to props. Do not need to use bindAction with code below
 // Action initializeForm function gets bound to props
 // connect(mapStateToProps, { initializeForm })
 
-export default connect(mapStateToProps, { initializeForm })(Login);
+export default connect(mapStateToProps, { initializeForm, logoutUser })(Login);

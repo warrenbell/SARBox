@@ -1,13 +1,20 @@
 
 // Example of navigation action with autorization
-const navToHome = () => {
+export const navToTimeTracking = () => {
   return (dispatch, getState) => {
-       const { authzReducer } = getState();
+       const { authzReducer, userReducer } = getState();
        const { authorizations } = authzReducer;
-       if(authorizations['showHomeScreen'] && authorizations['showHomeScreen'].allowed) {
-         dispatch({ type: "NAV_HOME" });
+       const { user } = userReducer;
+       if(user && authorizations['showTimeTrackingScreen'] && authorizations['showTimeTrackingScreen'].allowed) {
+         dispatch({ type: "NAV_TIME_TRACKING" });
        } else {
-         dispatch({ type: "NAV_MESSAGE", params: { authzErrorMessage: ( authorizations['showHomeScreen'] ? authorizations['showHomeScreen'].authzErrorMessage : "You are not authorized to view this screen" }});
+         if(!user) {
+           dispatch({ type: "NAV_ERROR", navError: "You can not go to Time Tracking. There is no user loged in" });
+         } else {
+           dispatch({ type: "NAV_ERROR", navError: ( authorizations['showTimeTrackingScreen'] ?  authorizations['showTimeTrackingScreen'].authzErrorMessage : "You are not authorized to view this screen") });
+         }
+         dispatch({ type: "NAV_DRAWER_CLOSE" });
+         //navigation.dispatch({ type:'NAV_DRAWER_OPEN' })
        }
   };
 };

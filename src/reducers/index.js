@@ -7,9 +7,18 @@ import authzReducer from "../utils/authorization/reducer";
 
 import navReducer from "../utils/navigation/reducer";
 
+import userReducer from "../domain/user/reducer";
+
+import timeEntryReducer from "../domain/timeEntry/reducer";
+
+import teamReducer from "../domain/team/reducer";
+
 export default combineReducers({
   form: formReducer,
   authReducer,
   authzReducer,
-  navReducer
+  navReducer,
+  userReducer,
+  timeEntryReducer,
+  teamReducer
 });

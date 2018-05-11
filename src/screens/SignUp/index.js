@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react";
-import { Image, StatusBar } from "react-native";
+import { ImageBackground, StatusBar } from "react-native";
 import {
   Container,
   Content,
@@ -101,7 +101,7 @@ class SignUpForm extends Component {
           backgroundColor={commonColor.statusBarColor}
           barStyle="light-content"
         />
-        <Image
+        <ImageBackground
           source={require("../../../assets/bg-signup.png")}
           style={styles.background}
         >
@@ -160,7 +160,7 @@ class SignUpForm extends Component {
               </Button>
             </Right>
           </Footer>
-        </Image>
+        </ImageBackground>
       </Container>
     );
   }

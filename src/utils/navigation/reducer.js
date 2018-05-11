@@ -28,7 +28,9 @@ NavigationActions.navigate({ routeName: 'Home' }) gets us the action object and 
 // Start with two routes: The Home screen, with the Login screen on top.
 // Still stuck here. Not sure how to create the inital stack. Start out with Login and go foreward or always remove Login? Only use NavigationActions.back() on login if you want to preserve the stack?
 const homeDrawerNavState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: "Home" }));
-const INITIAL_STATE = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: "Login" }), homeDrawerNavState );
+const homeDrawerLoginNavState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: "Login" }), homeDrawerNavState );
+
+const INITIAL_STATE = { ...homeDrawerLoginNavState, navError: null };
 
 // This will reset the navigation stack back to the INITIAL_STATE
 const resetToInitialState = NavigationActions.reset({
@@ -42,6 +44,15 @@ const resetToInitialState = NavigationActions.reset({
 export default (state = INITIAL_STATE, action) => {
   let nextState;
   switch (action.type) {
+    case 'NAV_ERROR':
+      nextState = { ...state, navError: action.navError };
+      break;
+    case 'NAV_DRAWER_OPEN':
+      nextState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName:'DrawerOpen' }), state);
+      break;
+    case 'NAV_DRAWER_CLOSE':
+      nextState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: 'DrawerClose' }), state);
+      break;
     case 'NAV_BACK':
       // Always remove Login screen on successful login
       nextState = AppNavigator.router.getStateForAction(NavigationActions.back(), state);
@@ -66,9 +77,6 @@ export default (state = INITIAL_STATE, action) => {
       break;
     case 'NAV_WALKTHROUGH':
       nextState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName:'Walkthrough', params: action.params }), state);
-      break;
-    case 'NAV_DRAWER_OPEN':
-      nextState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName:'DrawerOpen' }), state);
       break;
     case 'NAV_HOME':
       nextState = AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName:'Home', params: action.params }), state);

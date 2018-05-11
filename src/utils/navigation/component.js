@@ -46,7 +46,7 @@ class AppWithNavigationState extends Component {
         navigation={addNavigationHelpers({
           dispatch,
           state: navReducer,
-          navAddListener,
+          navAddListener
         })}
       />
     );

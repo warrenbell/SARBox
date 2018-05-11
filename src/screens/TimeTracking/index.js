@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react";
-import { Image, TouchableOpacity, ListView } from "react-native";
+import { ImageBackground, TouchableOpacity, ListView } from "react-native";
 
 import {
   Container,
@@ -20,33 +20,32 @@ import {
 import { Grid, Col } from "react-native-easy-grid";
 import { connect } from "react-redux";
 
+import moment from 'moment';
+
+import { deleteTimeEntry } from "../../actions";
+
 import CustomHeader from "../../components/CustomHeader";
 
 import styles from "./styles";
-import datas from "./data";
 
 type Props = {
   navigation: () => void
 };
 class TimeTracking extends Component {
-  state: {
-    listViewData: any
-  };
   props: Props;
   dataSource: Object;
   constructor(props: Props) {
     super(props);
     this.dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      listViewData: datas
-    };
   }
 
-  deleteRow(secId: string, rowId: string, rowMap: any) {
+  deleteRow(data: any, secId: string, rowId: string, rowMap: any) {
+    const { deleteTimeEntry } = this.props;
     rowMap[`${secId}${rowId}`].props.closeRow();
-    const newData = [...this.state.listViewData];
-    newData.splice(rowId, 1);
-    this.setState({ listViewData: newData });
+    deleteTimeEntry(data);
+    //const newData = [...this.state.listViewData];
+    //newData.splice(rowId, 1);
+    //this.setState({ listViewData: newData });
   }
 
   renderRow(data) {
@@ -58,7 +57,10 @@ class TimeTracking extends Component {
           flexDirection: "row",
           backgroundColor: "#FFF"
         }}
-        onPress={() => navigation.dispatch({ type:"NAV_TIME_ENTRY" })}
+        onPress={() => {
+          //setTimeEntry(data);
+          navigation.dispatch({ type:"NAV_TIME_ENTRY", params: { timeEntry: data } });
+        }}
       >
         <View style={styles.newsContent}>
           <Text numberOfLines={1} style={styles.newsHeader2}>
@@ -71,7 +73,7 @@ class TimeTracking extends Component {
             <Col style={{ flexDirection: "row" }}>
               <Icon name="ios-calendar-outline" style={styles.timeIcon} />
               <Text style={styles.newsLink}>
-                {data.date}
+                {moment(data.date, "YYYY-MM-DD").format("MMM D, YYYY")}
               </Text>
             </Col>
             <Col style={{ flexDirection: "row" }}>
@@ -96,10 +98,11 @@ class TimeTracking extends Component {
 
 
   render() {
-    const { navigation } = this.props;
+    console.warn("render in TimeTracking called");
+    const { navigation, user } = this.props;
     return (
       <Container>
-        <Image
+        <ImageBackground
           source={require("../../../assets/bg-transparent.png")}
           style={styles.container}
         >
@@ -126,7 +129,7 @@ class TimeTracking extends Component {
           </Header>
           <View style={styles.profileInfoContainer}>
             <View style={styles.profileInfo}>
-              <Text style={styles.profileUser}>John Smith</Text>
+              <Text style={styles.profileUser}>{user.firstName + ' ' + user.lastName}</Text>
               <Text note style={styles.profileUserInfo}>
                 BSAR, BMI, Helitec
               </Text>
@@ -160,7 +163,7 @@ class TimeTracking extends Component {
               </Grid>
             </View>
 
-            {this.dataSource.cloneWithRows(this.state.listViewData).getRowCount() === 0
+            {this.dataSource.cloneWithRows(this.props.timeEntries).getRowCount() === 0
               ? <View style={styles.linkTabs}>
                   <ListItem
                     style={{
@@ -185,14 +188,14 @@ class TimeTracking extends Component {
                     </ListItem>
                   </View>
                   <List
-                    dataSource={this.dataSource.cloneWithRows(this.state.listViewData)}
+                    dataSource={this.dataSource.cloneWithRows(this.props.timeEntries)}
                     renderRow={data => this.renderRow(data)}
                     renderLeftHiddenRow={() => null}
                     renderRightHiddenRow={(data, secId, rowId, rowMap) =>
                       <Button
                         full
                         danger
-                        onPress={_ => this.deleteRow(secId, rowId, rowMap)}
+                        onPress={_ => this.deleteRow(data, secId, rowId, rowMap)}
                         style={styles.swipeBtn}
                       >
                         <Icon active name="trash" style={{ fontSize: 35 }} />
@@ -201,15 +204,20 @@ class TimeTracking extends Component {
                   />
                 </View>}
           </Content>
-        </Image>
+        </ImageBackground>
       </Container>
     );
   }
 }
 
-const mapStateToProps = ({ authReducer }) => {
-  const { user } = authReducer;
-  return { user };
+
+const mapStateToProps = ({ userReducer, timeEntryReducer }) => {
+  const { user } = userReducer;
+  let { timeEntries } = timeEntryReducer;
+  if(!timeEntries) {
+    timeEntries = [];
+  }
+  return { user, timeEntries };
 };
 
-export default connect(mapStateToProps, null)(TimeTracking);
+export default connect(mapStateToProps, { deleteTimeEntry })(TimeTracking);

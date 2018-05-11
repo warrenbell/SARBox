@@ -6,6 +6,23 @@ const primary = require("../../theme/variables/commonColor").brandPrimary;
 import variable from "../../theme/variables/platform";
 
 const styles = {
+  formErrorIcon: {
+    color: "#fff",
+    marginTop: 5,
+    right: 10
+  },
+  formErrorText1: {
+    fontSize: Platform.OS === "android" ? 12 : 15,
+    color: primary.brandDanger,
+    textAlign: "right",
+    top: -10
+  },
+  formErrorText2: {
+    fontSize: Platform.OS === "android" ? 12 : 15,
+    color: "transparent",
+    textAlign: "right",
+    top: -10
+  },
   header: {
     width: Dimensions.get("window").width,
     paddingLeft: 15,
@@ -90,9 +107,30 @@ const styles = {
   input: {
     color: "#000"
   },
+  inputHourTypeView: {
+    flex: 1,
+    flexDirection: 'row',
+    height: variable.inputHeightBase,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  inputHourType: {
+    color: variable.inputColor,
+    fontSize: variable.inputFontSize,
+    lineHeight: variable.inputLineHeight,
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  inputHourTypePlaceHolder: {
+    color: "rgba(0,0,0,0.5)",
+    fontSize: variable.inputFontSize,
+    lineHeight: variable.inputLineHeight,
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
   inputBox: {
-    maxHeight: 100,
-    minHeight: 100,
+    maxHeight: 75,
+    minHeight: 75,
     textAlignVertical: "top"
   },
   inputBoxIcon: {
@@ -105,25 +143,6 @@ const styles = {
   bg: {
     backgroundColor: primary
   }
-};
-
-
-
-const dateInput = (variables = variable) => {
-	const dateInput = {
-		color: variables.inputColor,
-		paddingLeft: 5,
-		paddingRight: 5,
-		fontSize: variables.inputFontSize,
-		lineHeight: variables.inputLineHeight,
-    flex: 1,
-    height: variables.inputHeightBase,
-    borderWidth: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-	};
-
-	return dateInput;
 };
 
 const getDatePickerCustomStyles = (variables = variable) => {

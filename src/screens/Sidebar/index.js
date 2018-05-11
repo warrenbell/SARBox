@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { ImageBackground, TouchableOpacity } from "react-native";
 
 import {
   Container,
@@ -15,16 +15,16 @@ import { Grid, Col } from "react-native-easy-grid";
 import { connect } from "react-redux";
 
 // Get login actions
-import { logoutUser } from "../../actions";
+import { logoutUser, navToTimeTracking } from "../../actions";
 
 import styles from "./style";
 
 class SideBar extends Component {
   render() {
-    const { logoutUser, navigation } = this.props;
+    const { logoutUser, navigation, navToTimeTracking } = this.props;
     return (
       <Container>
-        <Image
+        <ImageBackground
           source={require("../../../assets/sidebar-transparent.png")}
           style={styles.background}
         >
@@ -103,7 +103,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch({ type:'NAV_TIME_TRACKING' })
+                navToTimeTracking()
               }}
               iconLeft
               style={styles.links}
@@ -131,7 +131,7 @@ class SideBar extends Component {
             <ListItem
               button
               onPress={() => {
-                navigation.dispatch({ type:'NAV_SETTINGS' })
+                navigation.dispatch({ type:'NAV_SETTINGS' });
               }}
               iconLeft
               style={styles.links}
@@ -147,7 +147,8 @@ class SideBar extends Component {
                 <Col>
                   <TouchableOpacity
                     onPress={() => {
-                      logoutUser();
+                      //logoutUser();
+                      navigation.dispatch({ type:'NAV_LOGOUT_RESET' });
                     }}
                     style={{
                       alignSelf: "flex-start",
@@ -178,7 +179,7 @@ class SideBar extends Component {
               </Grid>
             </View>
           </View>
-        </Image>
+        </ImageBackground>
       </Container>
     );
   }
@@ -188,4 +189,4 @@ const mapStateToProps = () => {
   return {};
 };
 
-export default connect(mapStateToProps, { logoutUser })(SideBar);
+export default connect(mapStateToProps, { logoutUser, navToTimeTracking })(SideBar);

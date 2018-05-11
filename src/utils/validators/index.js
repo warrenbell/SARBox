@@ -46,4 +46,12 @@ const alphaNumericNoSpaces = message => value =>
     ? message ? message : 'Only alphanumeric characters, No spaces'
     : undefined;
 
-export default { required, maxLength, minLength, email, alphaNumeric, alphaNumericNoSpaces };
+// useage: alphaNumericNoSpaces('message') will return a function that redux-form will call with the value to test
+// could also be called alphaNumericNoSpaces('message')(value) or alphaNumericNoSpaces()(value) without redux-form
+const numericDecimal = message => value =>
+  value && /^[0-9]*[.]{0,1}[0-9]*$/i.test(value)
+    ? undefined
+    : message ? message : 'Only numeric characters and decimals';
+
+
+export default { required, maxLength, minLength, email, alphaNumeric, alphaNumericNoSpaces, numericDecimal };
